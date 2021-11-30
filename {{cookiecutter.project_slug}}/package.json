@@ -3,12 +3,13 @@
   "version": "{{ cookiecutter.version }}",
   "dependencies": {},
   "devDependencies": {
-    {% if cookiecutter.js_task_runner == 'Gulp' -%}
-    {% if cookiecutter.custom_bootstrap_compilation == 'y' -%}
+    {%- if cookiecutter.js_task_runner != 'None' -%}
+    {%- if cookiecutter.custom_bootstrap_compilation == 'y' -%}
     "bootstrap": "^5.1.3",
     "gulp-concat": "^2.6.1",
     "@popperjs/core": "^2.10.2",
-    {% endif -%}
+    {% endif %}
+    {%- if cookiecutter.js_task_runner == 'Gulp' -%}
     "autoprefixer": "^10.4.0",
     "browser-sync": "^2.27.7",
     "cssnano": "^5.0.11",
@@ -22,7 +23,10 @@
     "pixrem": "^5.0.0",
     "postcss": "^8.3.11",
     "sass": "^1.43.4"
-    {%- endif %}
+    {% elif cookiecutter.js_task_runner == 'Parcel' -%}
+    "parcel": "^2.0.1"
+    {% endif %}
+    {% endif %}
   },
   "engines": {
     "node": "16"
@@ -30,8 +34,19 @@
   "browserslist": [
     "last 2 versions"
   ],
+  {%- if cookiecutter.js_task_runner == 'Parcel' -%}
+  "source": ["./{{ cookiecutter.project_slug }}/assets/js/index.js"],
+  "targets": {      
+          "default": {
+                  "distDir": "./{{ cookiecutter.project_slug }}/static/js"
+          }
+  },
+  {% endif %}
   "scripts": {
-    {% if cookiecutter.js_task_runner == 'Gulp' -%}
+    {% if cookiecutter.js_task_runner == 'Parcel' -%}
+    "dev": "parcel watch",
+    "build": "parcel build"
+    {%- elif cookiecutter.js_task_runner == 'Gulp' -%}
     "dev": "gulp",
     "build": "gulp generate-assets"
     {%- endif %}

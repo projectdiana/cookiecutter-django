@@ -187,6 +187,7 @@ Answer the prompts with your own desired options_. For example::
     Select js_task_runner:
     1 - None
     2 - Gulp
+    3 - Parcel
     Choose from 1, 2 [1]: 1
     Select cloud_provider:
     1 - AWS

@@ -60,6 +60,7 @@ js_task_runner:
 
     1. None
     2. Gulp_
+    3. Parcel_
 
 cloud_provider:
     Select a cloud provider for static & media files. The choices are:
